@@ -1,7 +1,9 @@
 import api from "@/api";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useQueryClient } from "@tanstack/react-query";
+import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Product } from "@/types";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { ChangeEvent, useState } from "react";
 
 export function Dashboard(){
@@ -36,7 +38,23 @@ export function Dashboard(){
       queryClient.invalidateQueries({ queryKey: ["products"] })
     }
     console.log("product ", product)
+    const getProducts = async () => {
+        try {
+          const res = await api.get("/products")
+          return res.data
+        } catch (error) {
+          console.error(error)
+          return Promise.reject(new Error("Something went wrong"))
+        }
+      }
+    
+      // Queries
+      const { data: products, error } = useQuery<Product[]>({
+        queryKey: ["products"],
+        queryFn: getProducts
+      })
    return(
+    <>
    <form onSubmit={handleSubmit}>
     <div className="mt-20 w-1/2">
         <h1>add a new product</h1>
@@ -67,4 +85,27 @@ export function Dashboard(){
       </Button>
     </div>
   </form>
+  <div>
+    <h1 className="scroll-m-20 text-4x1 my-3 font-semibold tracking-tight">products</h1>
+  <Table>
+      <TableCaption>A list of your recent Products.</TableCaption>
+      <TableHeader>
+        <TableRow>
+          <TableHead className="w-[100px]"></TableHead>
+          <TableHead>Name</TableHead>
+          <TableHead>categoryId</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {products?.map((product) => (
+          <TableRow key={product.id}>
+            <TableCell></TableCell>
+            <TableCell className="text-left">{product.name}</TableCell>
+            <TableCell className="text-left">{product.categoryId}</TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  </div>
+  </>
 )}
