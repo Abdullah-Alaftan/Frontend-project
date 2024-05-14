@@ -87,12 +87,13 @@ export function Dashboard() {
             placeholder="price"
             onChange={handleChange}
           />
-          <Input name="img" 
-          className="mt-4" 
-          type="string"
-           placeholder="img" 
-           onChange={handleChange}
-           />
+          <Input
+            name="img"
+            className="mt-4"
+            type="string"
+            placeholder="img"
+            onChange={handleChange}
+          />
           <Button className="mt-4" type="submit">
             Add
           </Button>

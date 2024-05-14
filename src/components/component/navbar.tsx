@@ -14,7 +14,7 @@ export function Navbar() {
         <MountainIcon className="h-6 w-6" />
         <span className="text-lg font-semibold">shoefiy</span>
       </Link>
-      <NavigationMenu className="hidden items-center gap-6 text-sm font-medium md:flex md:gap-10">
+      <NavigationMenu className="hidden items-center gap-6 text-sm font-medium md:flex md:gap-10 top-0">
         <NavigationMenuList className="md:gap-10">
           <NavigationMenuLink asChild>
             <Link to="http://localhost:3000/">Home</Link>
