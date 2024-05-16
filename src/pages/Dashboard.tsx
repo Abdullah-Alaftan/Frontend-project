@@ -1,4 +1,5 @@
 import api from "@/api"
+import { EditDialog } from "@/components/EditDialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
@@ -55,7 +56,20 @@ export function Dashboard() {
       return Promise.reject(new Error("Something went wrong"))
     }
   }
-
+  const deleteProduct = async (productId: string) => {
+    try {
+      const res = await api.delete(`/products/${productId}`)
+      return res.data
+    } catch (error) {
+      console.error(error)
+      return Promise.reject(new Error("Something went wrong"))
+    }
+  }
+  const handleDeleteProduct = async (productId: string) => {
+    await deleteProduct(productId)
+    queryClient.invalidateQueries({ queryKey: ["products"] })
+  }
+ 
   // Queries
   const { data: products, error } = useQuery<Product[]>({
     queryKey: ["products"],
@@ -108,6 +122,7 @@ export function Dashboard() {
               <TableHead className="w-[100px]"></TableHead>
               <TableHead>Name</TableHead>
               <TableHead>categoryId</TableHead>
+              <TableHead>price</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -116,6 +131,9 @@ export function Dashboard() {
                 <TableCell></TableCell>
                 <TableCell className="text-left">{product.name}</TableCell>
                 <TableCell className="text-left">{product.categoryId}</TableCell>
+                <TableCell className="text-left">{product.price}</TableCell>
+                <Button onClick={() => handleDeleteProduct(product.id)}>Delete</Button>
+                <TableCell><EditDialog product={product}/></TableCell>
               </TableRow>
             ))}
           </TableBody>

@@ -72,6 +72,7 @@ function MountainIcon(props: any) {
 }
 
 function ShoppingCartIcon(props: any) {
+  
   return (
     <svg
       {...props}

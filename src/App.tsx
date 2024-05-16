@@ -1,14 +1,14 @@
 import { createContext, useState } from "react"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
-import { Home } from "./pages/Home"
 import { Dashboard } from "./pages/Dashboard"
 import "./App.css"
 import { Product } from "./types"
+import { Home } from "./pages/Home"
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />
+    element: < Home/>
   },
   {
     path: "/dashboard",
@@ -23,17 +23,23 @@ type GlobalState = {
   cart: Product[]
 }
 export const GlobalContext = createContext<GlobalContextType | null>(null)
-
 function App() {
   const [state, setState] = useState<GlobalState>({
     cart: []
   })
+
   const handleAddToCart = (product: Product) => {
+    const isDuplicated = state.cart.find((cartItem) => cartItem.id === product.id)
+
+    if (isDuplicated) return
     setState({
       ...state,
       cart: [...state.cart, product]
     })
   }
+
+
+  console.log("cart ", state.cart)
   return (
     <div className="App">
       <GlobalContext.Provider value={{ state, handleAddToCart }}>

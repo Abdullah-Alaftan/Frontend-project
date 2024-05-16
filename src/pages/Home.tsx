@@ -18,7 +18,7 @@ export function Home() {
   const context = useContext(GlobalContext)
 
   if (!context) throw Error("Context is missing")
-  const { state, handleAddToCart } = context
+  const { state, handleAddToCart  } = context
   const getProducts = async () => {
     try {
       const res = await api.get("/products")
@@ -45,7 +45,7 @@ export function Home() {
           <Card key={product.id} className="w-[350px]">
             <CardHeader>
               <CardTitle>{product.name}</CardTitle>
-              <img src={product.img} />
+              <img src={product.img} className="mb-3 h-30" />
               <CardDescription>Some Description here</CardDescription>
             </CardHeader>
             <CardContent>{product.price}</CardContent>
