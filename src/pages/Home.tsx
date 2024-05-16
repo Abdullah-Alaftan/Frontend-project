@@ -10,18 +10,39 @@ import {
   CardTitle
 } from "@/components/ui/card"
 import { Product } from "@/types"
-import { useQuery } from "@tanstack/react-query"
-import { useContext } from "react"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
+import { ChangeEvent, useContext, useState } from "react"
 import { Navbar } from "@/components/component/navbar"
 
 export function Home() {
   const context = useContext(GlobalContext)
 
   if (!context) throw Error("Context is missing")
-  const { state, handleAddToCart  } = context
+  const { state, handleAddToCart } = context
+
+  const [searchBy, setSearchBy] = useState("")
+  console.log("searchBy:", searchBy)
+
+  const queryClient = useQueryClient()
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target
+    setSearchBy(value)
+    queryClient.invalidateQueries({ queryKey: ["products"] })
+  }
+
+  // const getProducts = async () => {
+  //   try {
+  //     const res = await api.get("/products")
+  //     return res.data
+  //   } catch (error) {
+  //     console.error(error)
+  //     return Promise.reject(new Error("Something went wrong"))
+  //   }
+  // }
   const getProducts = async () => {
     try {
-      const res = await api.get("/products")
+      const res = await api.get(`/products?search=${searchBy}`)
       return res.data
     } catch (error) {
       console.error(error)
@@ -35,9 +56,15 @@ export function Home() {
     queryFn: getProducts
   })
 
+  // if the search value is not empty, then getProducts
+  if (searchBy !== "") {
+    getProducts()
+  }
+  console.log("data ", data)
+
   return (
     <>
-      <Navbar />
+      <Navbar handleChange={handleChange} />
       <h1 className="text-2xl uppercase mb-10">Products</h1>
       <h3>cart({state.cart.length})</h3>
       <section className="flex flex-wrap flex-col md:flex-row gap-4 justify-between max-w-6xl mx-auto">

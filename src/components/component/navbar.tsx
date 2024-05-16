@@ -6,8 +6,28 @@ import {
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Link } from "react-router-dom"
+import { ChangeEvent, useContext, useState } from "react"
+import { useQueryClient } from "@tanstack/react-query"
+import { GlobalContext } from "@/App"
+type NavbarProps = {
+  handleChange: (e: ChangeEvent<HTMLInputElement>) => void
+}
+export function Navbar({ handleChange }: NavbarProps) {
+  const context = useContext(GlobalContext)
+  console.log("context:", context)
 
-export function Navbar() {
+  // const queryClient = useQueryClient()
+
+  // const [searchBy, setSearchBy] = useState("")
+  // console.log('searchBy:', searchBy)
+
+  // const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  //   const { value } = e.target
+  //   setSearchBy(value)
+  //   queryClient.invalidateQueries({ queryKey: ["products"] })
+
+  // }
+
   return (
     <header className="flex h-16 w-full items-left justify-between px- md:px-6">
       <Link className="flex items-center mr-20" to="#">
@@ -36,6 +56,7 @@ export function Navbar() {
             className="w-full rounded-md border border-gray-300 px-4 py-2 text-sm focus:border-gray-500 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200"
             placeholder="Search..."
             type="text"
+            onChange={handleChange}
           />
           <Button className="sr-only" type="submit">
             Search
@@ -44,7 +65,7 @@ export function Navbar() {
         <Link className="relative" to="#">
           <ShoppingCartIcon className="h-6 w-6" />
           <span className="absolute -top-2 -right-2 rounded-full bg-red-500 text-white text-xs px-2 py-1">
-            3
+            {context?.state.cart.length}
           </span>
         </Link>
       </div>
@@ -72,7 +93,6 @@ function MountainIcon(props: any) {
 }
 
 function ShoppingCartIcon(props: any) {
-  
   return (
     <svg
       {...props}
