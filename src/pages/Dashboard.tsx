@@ -69,7 +69,7 @@ export function Dashboard() {
     await deleteProduct(productId)
     queryClient.invalidateQueries({ queryKey: ["products"] })
   }
- 
+
   // Queries
   const { data: products, error } = useQuery<Product[]>({
     queryKey: ["products"],
@@ -78,7 +78,7 @@ export function Dashboard() {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <div className="mt-20 w-1/2">
+        <div className="mx-auto mt-20 w-1/2">
           <h1>add a new product</h1>
           <Input
             name="name"
@@ -133,7 +133,9 @@ export function Dashboard() {
                 <TableCell className="text-left">{product.categoryId}</TableCell>
                 <TableCell className="text-left">{product.price}</TableCell>
                 <Button onClick={() => handleDeleteProduct(product.id)}>Delete</Button>
-                <TableCell><EditDialog product={product}/></TableCell>
+                <TableCell>
+                  <EditDialog product={product} />
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

@@ -9,13 +9,12 @@ import { Link } from "react-router-dom"
 import { ChangeEvent, useContext, useState } from "react"
 import { useQueryClient } from "@tanstack/react-query"
 import { GlobalContext } from "@/App"
+
 type NavbarProps = {
-  handleChange: (e: ChangeEvent<HTMLInputElement>) => void
+  handleChange?: (e: ChangeEvent<HTMLInputElement>) => void
 }
 export function Navbar({ handleChange }: NavbarProps) {
   const context = useContext(GlobalContext)
-  console.log("context:", context)
-
   // const queryClient = useQueryClient()
 
   // const [searchBy, setSearchBy] = useState("")
@@ -29,7 +28,7 @@ export function Navbar({ handleChange }: NavbarProps) {
   // }
 
   return (
-    <header className="flex h-16 w-full items-left justify-between px- md:px-6">
+    <header className="flex h-16 w-full items-left justify-between px-4 md:px-6 fixed z-30 bg-blue-500" >
       <Link className="flex items-center mr-20" to="#">
         <MountainIcon className="h-6 w-6" />
         <span className="text-lg font-semibold">shoefiy</span>

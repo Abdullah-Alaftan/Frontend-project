@@ -1,7 +1,7 @@
 #root {
   max-width: 1880px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0rem;
   text-align: center;
 }
 
@@ -32,6 +32,10 @@
     animation: logo-spin infinite 20s linear;
   }
 }
+.md\:ml-auto {
+  margin-left: auto;
+  place-content: flex-end;
+}
 
 .card {
   padding: 2em;
@@ -39,4 +43,76 @@
 
 .read-the-docs {
   color: #888;
+}
+element.style {
+  position: absolute;
+  user-select: none;
+  touch-action: none;
+  left: calc(20% + 0px);
+}
+.navbarstyle {
+  background: cadetblue;
+  position: fixed;
+  z-index: 22;
+}
+element.style {
+  position: absolute;
+  user-select: none;
+  touch-action: none;
+  left: calc(0% + 0px);
+}
+
+.css6bmoar {
+  top: 50%;
+  transform: translateY(-50%);
+  width: var(--chakra-sizes-3);
+  height: var(--chakra-sizes-3);
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  position: absolute;
+  outline: transparent solid 2px;
+  outline-offset: 2px;
+  z-index: 1;
+  border-radius: var(--chakra-radii-full);
+  background: var(--chakra-colors-white);
+  box-shadow: var(--chakra-shadows-base);
+  transition-property: transform;
+  transition-duration: var(--chakra-transition-duration-normal);
+  border-width: 1px;
+  border-style: solid;
+  border-image: initial;
+  border-color: var(--chakra-colors-brand-secondary);
+}
+element.style {
+  position: relative;
+  touch-action: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  user-select: none;
+  outline: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.cssa3xaio {
+  display: inline-block;
+  width: 100%;
+  --slider-thumb-size: var(--chakra-sizes-3-5);
+  --slider-track-size: var(--chakra-sizes-1);
+  cursor: ew-resize;
+  background: var(--chakra-colors-transparent);
+  bottom: var(--chakra-space-8);
+  box-shadow: var(--chakra-shadows-none);
+  left: 0px;
+  margin-top: var(--chakra-space-2);
+  margin-bottom: var(--chakra-space-2);
+  opacity: 0;
+  overflow-x: scroll;
+  right: 0px;
+  top: 0px;
+  z-index: 1;
+  position: absolute !important;
+  touch-action: pan-y !important;
 }

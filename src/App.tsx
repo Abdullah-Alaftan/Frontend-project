@@ -4,6 +4,7 @@ import { Dashboard } from "./pages/Dashboard"
 import "./App.css"
 import { Product } from "./types"
 import { Home } from "./pages/Home"
+import { ProductDetails } from "./pages/ProductDetails"
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <Dashboard />
+  },
+  {
+    path: "/products/:productId",
+    element: <ProductDetails />
   }
 ])
 type GlobalContextType = {

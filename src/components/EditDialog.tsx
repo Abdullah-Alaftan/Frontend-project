@@ -7,7 +7,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
+  DialogTrigger
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -15,8 +15,9 @@ import { Product } from "@/types"
 import { useQueryClient } from "@tanstack/react-query"
 import { ChangeEvent, useState } from "react"
 
-export function EditDialog({product}: {product: Product}) {
+export function EditDialog({ product }: { product: Product }) {
   const queryClient = useQueryClient()
+  const [open, setOpen] = useState(false)
 
   const [updatedProduct, setUpdatedProduct] = useState(product)
 
@@ -32,6 +33,7 @@ export function EditDialog({product}: {product: Product}) {
 
   const handleUpdateProduct = async () => {
     await updateProduct()
+    setOpen(false)
     queryClient.invalidateQueries({ queryKey: ["products"] })
   }
 
@@ -44,13 +46,13 @@ export function EditDialog({product}: {product: Product}) {
   }
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">Edit Profile</Button>
+        <Button variant="outline">Edit </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Edit profile</DialogTitle>
+          <DialogTitle>Edit</DialogTitle>
           <DialogDescription>
             Make changes to your profile here. Click save when youre done.
           </DialogDescription>
@@ -77,10 +79,21 @@ export function EditDialog({product}: {product: Product}) {
               className="col-span-3"
               onChange={handleChange}
             />
+            <Label htmlFor="username" className="text-right">
+              img
+            </Label>
+            <Input
+              id="name"
+              defaultValue={updatedProduct.img}
+              className="col-span-3"
+              onChange={handleChange}
+            />
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit" onClick={handleUpdateProduct}>Save changes</Button>
+          <Button type="submit" onClick={handleUpdateProduct}>
+            Save changes
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
