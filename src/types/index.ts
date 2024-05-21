@@ -5,3 +5,10 @@ export type Product = {
   price:number
   categoryId: number
 }
+export type User = {
+  id: string
+  role: string
+  name: string
+  email:string
+  phone: number
+}

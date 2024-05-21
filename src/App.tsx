@@ -5,11 +5,13 @@ import "./App.css"
 import { Product } from "./types"
 import { Home } from "./pages/Home"
 import { ProductDetails } from "./pages/ProductDetails"
+import { Login } from "./pages/Login"
+import { Signup } from "./pages/Signup"
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: < Home/>
+    element: <Home/>
   },
   {
     path: "/dashboard",
@@ -17,7 +19,15 @@ const router = createBrowserRouter([
   },
   {
     path: "/products/:productId",
-    element: <ProductDetails />
+    element: <ProductDetails/>
+  },
+  {
+    path: "/Login",
+    element: <Login/>
+  },
+  {
+    path: "/Signup",
+    element: <Signup/>
   }
 ])
 type GlobalContextType = {

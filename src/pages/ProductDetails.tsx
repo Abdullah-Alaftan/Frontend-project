@@ -46,6 +46,7 @@ export function ProductDetails({ handleChange }: NavbarProps) {
       <Navbar handleChange={handleChange} />
       <div className="pt-20">
         <h3>{product.name}</h3>
+        
       </div>
     </>
   )

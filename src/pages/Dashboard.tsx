@@ -11,7 +11,7 @@ import {
   TableHeader,
   TableRow
 } from "@/components/ui/table"
-import { Product } from "@/types"
+import { Product , User} from "@/types"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { ChangeEvent, useState } from "react"
 
@@ -33,7 +33,8 @@ export function Dashboard() {
   }
   const postProduct = async () => {
     try {
-      const res = await api.post("/products", product)
+      const res = await api.post("/products", product,)
+    
       return res.data
     } catch (error) {
       console.error(error)
@@ -56,6 +57,20 @@ export function Dashboard() {
       return Promise.reject(new Error("Something went wrong"))
     }
   }
+  const getUsers = async () => {
+    const token = localStorage.getItem("token")
+    try {
+      const res = await api.get("/users",{
+        headers:{
+          Authorization : `Bearer ${token}`
+        }
+      })
+      return res.data
+    } catch (error) {
+      console.error(error)
+      return Promise.reject(new Error("Something went wrong"))
+    }
+  }
   const deleteProduct = async (productId: string) => {
     try {
       const res = await api.delete(`/products/${productId}`)
@@ -69,12 +84,17 @@ export function Dashboard() {
     await deleteProduct(productId)
     queryClient.invalidateQueries({ queryKey: ["products"] })
   }
-
   // Queries
   const { data: products, error } = useQuery<Product[]>({
     queryKey: ["products"],
     queryFn: getProducts
   })
+
+  const { data: users, error: userError } = useQuery<User[]>({
+    queryKey: ["users"],
+    queryFn: getUsers
+  })
+
   return (
     <>
       <form onSubmit={handleSubmit}>
