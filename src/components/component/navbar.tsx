@@ -41,7 +41,7 @@ export function Navbar({ handleChange }: NavbarProps) {
             <Link to="http://localhost:3000/">Home</Link>
           </NavigationMenuLink>
           <NavigationMenuLink asChild>
-            <Link to="#">About</Link>
+            <Link to="/dashboard">About</Link>
           </NavigationMenuLink>
           <NavigationMenuLink asChild>
             <Link to="#">Services</Link>

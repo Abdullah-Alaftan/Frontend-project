@@ -1,4 +1,5 @@
 import api from "@/api"
+import jwt  from "jwt-decode";
 import { EditDialog } from "@/components/EditDialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -11,11 +12,13 @@ import {
   TableHeader,
   TableRow
 } from "@/components/ui/table"
-import { Product , User} from "@/types"
+import { DecodedUser, Product , ROLE, User} from "@/types"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
-import { ChangeEvent, useState } from "react"
+import { ChangeEvent, useEffect, useState } from "react"
+import {  useNavigate } from "react-router-dom";
 
 export function Dashboard() {
+  const navegate = useNavigate();
   const queryClient = useQueryClient()
 
   const [product, setProduct] = useState({
@@ -24,6 +27,8 @@ export function Dashboard() {
     price: 0,
     img: ""
   })
+  
+  
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setProduct({
@@ -42,12 +47,10 @@ export function Dashboard() {
     }
   }
   const handleSubmit = async (e: any) => {
-    console.log("handleSubmit:", handleSubmit)
     e.preventDefault()
     await postProduct()
     queryClient.invalidateQueries({ queryKey: ["products"] })
   }
-  console.log("product ", product)
   const getProducts = async () => {
     try {
       const res = await api.get("/products")

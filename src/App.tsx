@@ -7,6 +7,7 @@ import { Home } from "./pages/Home"
 import { ProductDetails } from "./pages/ProductDetails"
 import { Login } from "./pages/Login"
 import { Signup } from "./pages/Signup"
+import { PrivateRoute } from "./components/ui/PrivateRoute"
 
 const router = createBrowserRouter([
   {
@@ -15,7 +16,10 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Dashboard />
+    element: 
+      <PrivateRoute>
+      <Dashboard />
+      </PrivateRoute>
   },
   {
     path: "/products/:productId",

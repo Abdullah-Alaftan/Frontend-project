@@ -12,3 +12,19 @@ export type User = {
   email:string
   phone: number
 }
+export const ROLE = {
+  Admin:  "Admin",
+  Customer:"Customer"
+} as const
+
+export type RoleType = typeof ROLE[keyof typeof ROLE];
+
+export type DecodedUser = {
+  aud: string
+  emailaddress: string
+  exp: number
+  iss: string
+  name:string
+  nameidentifier: string
+  role: RoleType
+}

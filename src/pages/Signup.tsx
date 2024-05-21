@@ -5,7 +5,7 @@ import { ChangeEvent, FormEvent, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 
 export function Signup() {
-  const navegate = useNavigate()
+  const navegate = useNavigate();
 
   const [user, setUser] = useState({
     name: "",
