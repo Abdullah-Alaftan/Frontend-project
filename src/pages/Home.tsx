@@ -12,10 +12,10 @@ import {
 import { Product } from "@/types"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { ChangeEvent, useContext, useState } from "react"
-import { Navbar } from "@/components/component/navbar"
+import { Navbar } from "@/components/NavBar"
 import React from "react"
 
-import { HeroSection } from "@/components/component/HeroSection"
+import { HeroSection } from "@/components/HeroSection"
 import { Link } from "react-router-dom"
 export function Home() {
   const context = useContext(GlobalContext)

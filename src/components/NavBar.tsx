@@ -9,14 +9,19 @@ import { Link } from "react-router-dom"
 import { ChangeEvent, useContext, useState } from "react"
 import { useQueryClient } from "@tanstack/react-query"
 import { GlobalContext } from "@/App"
-import {  Popover, PopoverContent, PopoverTrigger } from "../ui/popover"
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover"
 import { XIcon } from "lucide-react"
+import { ROLE } from "@/types"
 
 type NavbarProps = {
   handleChange?: (e: ChangeEvent<HTMLInputElement>) => void
 }
 export function Navbar({ handleChange }: NavbarProps) {
   const context = useContext(GlobalContext)
+
+  if (!context) throw Error("Context is missing")
+  const { state } = context
+  console.log("state:", state)
   // const queryClient = useQueryClient()
 
   // const [searchBy, setSearchBy] = useState("")
@@ -30,7 +35,7 @@ export function Navbar({ handleChange }: NavbarProps) {
   // }
 
   return (
-    <header className="flex h-16 w-full items-left justify-between px-4 md:px-6 fixed z-30 bg-blue-500" >
+    <header className="flex h-16 w-full items-left justify-between px-4 md:px-6  inset-y-0	fixed z-30 bg-blue-500">
       <Link className="flex items-center mr-20" to="#">
         <MountainIcon className="h-6 w-6" />
         <span className="text-lg font-semibold">shoefiy</span>
@@ -40,15 +45,19 @@ export function Navbar({ handleChange }: NavbarProps) {
           <NavigationMenuLink asChild>
             <Link to="http://localhost:3000/">Home</Link>
           </NavigationMenuLink>
-          <NavigationMenuLink asChild>
-            <Link to="/dashboard">About</Link>
-          </NavigationMenuLink>
+          {state.user?.role === ROLE.Admin && (
+            <NavigationMenuLink asChild>
+              <Link to="/dashboard">dashboard</Link>
+            </NavigationMenuLink>
+          )}
           <NavigationMenuLink asChild>
             <Link to="#">Services</Link>
           </NavigationMenuLink>
-          <NavigationMenuLink asChild>
-            <Link to="/Login">Login</Link>
-          </NavigationMenuLink>
+          {!state.user && (
+            <NavigationMenuLink asChild>
+              <Link to="/Login">Login</Link>
+            </NavigationMenuLink>
+          )}
         </NavigationMenuList>
       </NavigationMenu>
       <div className="relative flex items-center gap-4 flex-1 max-w-md md:ml-auto">
@@ -65,12 +74,14 @@ export function Navbar({ handleChange }: NavbarProps) {
         </form>
         <Popover>
           <PopoverTrigger asChild>
-             { <Link className="relative" to="#">
-          <ShoppingCartIcon className="h-6 w-6" />
-          <span className="absolute -top-2 -right-2 rounded-full bg-red-500 text-white text-xs px-2 py-1">
-            {context?.state.cart.length}
-          </span>
-        </Link>}
+            {
+              <Link className="relative" to="#">
+                <ShoppingCartIcon className="h-6 w-6" />
+                <span className="absolute -top-2 -right-2 rounded-full bg-red-500 text-white text-xs px-2 py-1">
+                  {context?.state.cart.length}
+                </span>
+              </Link>
+            }
           </PopoverTrigger>
           <PopoverContent className="w-80 p-4 border rounded-lg shadow-lg bg-white dark:bg-gray-800 dark:border-gray-700">
             <div className="flex items-center justify-between mb-4">
@@ -93,7 +104,7 @@ export function Navbar({ handleChange }: NavbarProps) {
                     src="/placeholder.svg"
                     style={{
                       aspectRatio: "64/64",
-                      objectFit: "cover",
+                      objectFit: "cover"
                     }}
                     width={64}
                   />
@@ -119,7 +130,7 @@ export function Navbar({ handleChange }: NavbarProps) {
                     src="/placeholder.svg"
                     style={{
                       aspectRatio: "64/64",
-                      objectFit: "cover",
+                      objectFit: "cover"
                     }}
                     width={64}
                   />

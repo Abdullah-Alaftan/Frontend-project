@@ -1,6 +1,6 @@
 import { GlobalContext } from "@/App"
 import api from "@/api"
-import { Navbar } from "@/components/component/navbar"
+import { Navbar } from "@/components/NavBar"
 import { Product } from "@/types"
 import { useQuery } from "@tanstack/react-query"
 import { ChangeEvent, useContext } from "react"
@@ -22,7 +22,7 @@ export function ProductDetails({ handleChange }: NavbarProps) {
       return Promise.reject(new Error("Something went wrong"))
     }
   }
-  
+
   // Queries
   const {
     data: product,
@@ -32,21 +32,20 @@ export function ProductDetails({ handleChange }: NavbarProps) {
     queryKey: ["product"],
     queryFn: getProduct
   })
-  console.log('product:', product)
-  
+  console.log("product:", product)
+
   if (isLoading) {
     return <p>loading....</p>
   }
   if (!product) {
     return <p>Product not found!!</p>
   }
-  
+
   return (
     <>
       <Navbar handleChange={handleChange} />
       <div className="pt-20">
         <h3>{product.name}</h3>
-        
       </div>
     </>
   )

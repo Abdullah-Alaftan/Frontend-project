@@ -1,8 +1,8 @@
-import { createContext, useState } from "react"
+import { createContext, useEffect, useState } from "react"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import { Dashboard } from "./pages/Dashboard"
 import "./App.css"
-import { Product } from "./types"
+import { DecodedUser, Product } from "./types"
 import { Home } from "./pages/Home"
 import { ProductDetails } from "./pages/ProductDetails"
 import { Login } from "./pages/Login"
@@ -37,16 +37,28 @@ const router = createBrowserRouter([
 type GlobalContextType = {
   state: GlobalState
   handleAddToCart: (product: Product) => void
+  handleStoreUser: (user: DecodedUser)=> void
 }
 type GlobalState = {
   cart: Product[]
+  user: DecodedUser| null
 }
 export const GlobalContext = createContext<GlobalContextType | null>(null)
 function App() {
   const [state, setState] = useState<GlobalState>({
-    cart: []
+    cart: [],
+    user: null
   })
-
+useEffect(()=>{
+ const user  = localStorage.getItem("user")
+  if(user){
+    const decodedUser = JSON.parse(user)
+  setState({
+    ...state,
+    user : decodedUser
+  })
+}
+})
   const handleAddToCart = (product: Product) => {
     const isDuplicated = state.cart.find((cartItem) => cartItem.id === product.id)
 
@@ -57,11 +69,15 @@ function App() {
     })
   }
 
-
-  console.log("cart ", state.cart)
+const handleStoreUser = (user: DecodedUser)=> {
+setState({
+  ...state,
+  user
+})
+}
   return (
     <div className="App">
-      <GlobalContext.Provider value={{ state, handleAddToCart }}>
+      <GlobalContext.Provider value={{ state, handleAddToCart, handleStoreUser }}>
         <RouterProvider router={router} />
       </GlobalContext.Provider>
     </div>

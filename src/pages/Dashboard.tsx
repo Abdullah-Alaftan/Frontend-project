@@ -1,5 +1,4 @@
 import api from "@/api"
-import jwt  from "jwt-decode";
 import { EditDialog } from "@/components/EditDialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -12,13 +11,12 @@ import {
   TableHeader,
   TableRow
 } from "@/components/ui/table"
-import { DecodedUser, Product , ROLE, User} from "@/types"
+import { Product, ROLE, User } from "@/types"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
-import { ChangeEvent, useEffect, useState } from "react"
-import {  useNavigate } from "react-router-dom";
-
+import { ChangeEvent, useState } from "react"
+import ProductService from "../api/products"
+import { Navbar } from "@/components/NavBar"
 export function Dashboard() {
-  const navegate = useNavigate();
   const queryClient = useQueryClient()
 
   const [product, setProduct] = useState({
@@ -27,8 +25,7 @@ export function Dashboard() {
     price: 0,
     img: ""
   })
-  
-  
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setProduct({
@@ -36,36 +33,19 @@ export function Dashboard() {
       [name]: value
     })
   }
-  const postProduct = async () => {
-    try {
-      const res = await api.post("/products", product,)
-    
-      return res.data
-    } catch (error) {
-      console.error(error)
-      return Promise.reject(new Error("Something went wrong"))
-    }
-  }
+
   const handleSubmit = async (e: any) => {
     e.preventDefault()
-    await postProduct()
+    await ProductService.createOne(product)
     queryClient.invalidateQueries({ queryKey: ["products"] })
   }
-  const getProducts = async () => {
-    try {
-      const res = await api.get("/products")
-      return res.data
-    } catch (error) {
-      console.error(error)
-      return Promise.reject(new Error("Something went wrong"))
-    }
-  }
+
   const getUsers = async () => {
     const token = localStorage.getItem("token")
     try {
-      const res = await api.get("/users",{
-        headers:{
-          Authorization : `Bearer ${token}`
+      const res = await api.get("/users", {
+        headers: {
+          Authorization: `Bearer ${token}`
         }
       })
       return res.data
@@ -74,23 +54,15 @@ export function Dashboard() {
       return Promise.reject(new Error("Something went wrong"))
     }
   }
-  const deleteProduct = async (productId: string) => {
-    try {
-      const res = await api.delete(`/products/${productId}`)
-      return res.data
-    } catch (error) {
-      console.error(error)
-      return Promise.reject(new Error("Something went wrong"))
-    }
-  }
+
   const handleDeleteProduct = async (productId: string) => {
-    await deleteProduct(productId)
+    await ProductService.deleteOne(productId)
     queryClient.invalidateQueries({ queryKey: ["products"] })
   }
   // Queries
   const { data: products, error } = useQuery<Product[]>({
     queryKey: ["products"],
-    queryFn: getProducts
+    queryFn: ProductService.getAll
   })
 
   const { data: users, error: userError } = useQuery<User[]>({
@@ -100,6 +72,7 @@ export function Dashboard() {
 
   return (
     <>
+      <Navbar />
       <form onSubmit={handleSubmit}>
         <div className="mx-auto mt-20 w-1/2">
           <h1>add a new product</h1>
@@ -120,7 +93,7 @@ export function Dashboard() {
           <Input
             name="price"
             className="mt-4"
-            type="numper"
+            type="number"
             placeholder="price"
             onChange={handleChange}
           />
