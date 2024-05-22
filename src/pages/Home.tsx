@@ -56,14 +56,13 @@ export function Home() {
     <>
       <Navbar handleChange={handleChange} />
       <h1 className="text-2xl uppercase mb-10">Products</h1>
-      <section className="flex flex-wrap flex-col md:flex-row gap-4 justify-between max-w-6xl mx-auto">
+      <section className="flex flex-wrap flex-col md:flex-row gap-4 justify-around max-w-6xl mx-auto">
         <HeroSection />
         {data?.map((product) => (
           <Card key={product.id} className="w-[350px]">
             <CardHeader>
               <CardTitle>{product.name}</CardTitle>
               <img src={product.img} className="mb-3 h-30 css.6bmoar css.a3xaio" />{" "}
-              {/* Add the classes here */}
               <CardDescription>Some Description here</CardDescription>
             </CardHeader>
             <CardContent>{product.price}</CardContent>

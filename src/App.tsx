@@ -12,36 +12,40 @@ import { PrivateRoute } from "./components/ui/PrivateRoute"
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home/>
+    element: <Home />
   },
   {
     path: "/dashboard",
-    element: 
+    element: (
       <PrivateRoute>
-      <Dashboard />
+        <Dashboard />
       </PrivateRoute>
+    )
   },
   {
     path: "/products/:productId",
-    element: <ProductDetails/>
+    element: <ProductDetails />
   },
   {
     path: "/Login",
-    element: <Login/>
+    element: <Login />
   },
   {
     path: "/Signup",
-    element: <Signup/>
+    element: <Signup />
   }
 ])
 type GlobalContextType = {
   state: GlobalState
   handleAddToCart: (product: Product) => void
-  handleStoreUser: (user: DecodedUser)=> void
+  handleDeleteFromCart: (productId: string) => void
+  handleDecreaseFromCart: (productId: string) => void
+  handleStoreUser: (user: DecodedUser) => void
+
 }
 type GlobalState = {
   cart: Product[]
-  user: DecodedUser| null
+  user: DecodedUser | null
 }
 export const GlobalContext = createContext<GlobalContextType | null>(null)
 function App() {
@@ -49,35 +53,57 @@ function App() {
     cart: [],
     user: null
   })
-useEffect(()=>{
- const user  = localStorage.getItem("user")
-  if(user){
-    const decodedUser = JSON.parse(user)
-  setState({
-    ...state,
-    user : decodedUser
-  })
-}
-})
+  useEffect(() => {
+    const user = localStorage.getItem("user")
+    if (user) {
+      const decodedUser = JSON.parse(user)
+      setState({
+        ...state,
+        user: decodedUser
+      })
+    }
+  }, [])
   const handleAddToCart = (product: Product) => {
-    const isDuplicated = state.cart.find((cartItem) => cartItem.id === product.id)
+    // const isDuplicated = state.cart.find((cartItem) => cartItem.id === product.id)
 
-    if (isDuplicated) return
+    // if (isDuplicated) return
     setState({
       ...state,
       cart: [...state.cart, product]
     })
   }
-
-const handleStoreUser = (user: DecodedUser)=> {
-setState({
-  ...state,
-  user
-})
-}
+  const handleDeleteFromCart = (id: string) => {
+   
+    const filteredCart = state.cart.filter((item) => item.id !== id)
+    setState({
+      ...state,
+      cart: filteredCart
+    })
+  }
+  const handleDecreaseFromCart = (id: string) => {
+    const cart = state.cart
+    const index = state.cart.findIndex((item) => item.id === id)
+    console.log('cart:', cart)
+    cart.splice (index, 1)
+   
+     
+    // const filteredCart = state.cart.filter((item) => item.id !== id)
+    setState({
+      ...state,
+      cart: cart
+    })
+  }
+  const handleStoreUser = (user: DecodedUser) => {
+    setState({
+      ...state,
+      user
+    })
+  }
   return (
     <div className="App">
-      <GlobalContext.Provider value={{ state, handleAddToCart, handleStoreUser }}>
+      <GlobalContext.Provider
+        value={{ state, handleAddToCart, handleDeleteFromCart, handleStoreUser , handleDecreaseFromCart}}
+      >
         <RouterProvider router={router} />
       </GlobalContext.Provider>
     </div>
