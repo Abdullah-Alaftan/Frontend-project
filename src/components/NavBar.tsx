@@ -41,6 +41,7 @@ export function Navbar({ handleChange }: NavbarProps) {
     <header className="flex h-16 w-full items-left justify-between px-4 md:px-6  inset-y-0	fixed z-30 bg-blue-500">
       <Link className="flex items-center mr-20" to="#">
         <MountainIcon className="h-6 w-6" />
+        
         <span className="text-lg font-semibold">shoefiy</span>
       </Link>
       <NavigationMenu className="hidden items-center gap-6 text-sm font-medium md:flex md:gap-10 top-0">

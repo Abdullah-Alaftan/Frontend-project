@@ -39,6 +39,7 @@ type GlobalContextType = {
   state: GlobalState
   handleAddToCart: (product: Product) => void
   handleDeleteFromCart: (productId: string) => void
+  // handleRemoveCart: () => void
   handleDecreaseFromCart: (productId: string) => void
   handleStoreUser: (user: DecodedUser) => void
 
@@ -80,6 +81,13 @@ function App() {
       cart: filteredCart
     })
   }
+  // const handleRemoveCart = () => {
+   
+  //   setState({
+  //     ...state,
+  //     cart: []
+  //   })
+  // }
   const handleDecreaseFromCart = (id: string) => {
     const cart = state.cart
     const index = state.cart.findIndex((item) => item.id === id)

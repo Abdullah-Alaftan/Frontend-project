@@ -2,23 +2,62 @@ import { GlobalContext } from "@/App"
 import { useContext } from "react"
 import { Button } from "./ui/button"
 import { Popover, PopoverTrigger, PopoverContent } from "@radix-ui/react-popover"
-import { MinusIcon, PlusIcon, XIcon } from "lucide-react"
+import { Key, MinusIcon, PlusIcon, XIcon } from "lucide-react"
 import { Link } from "react-router-dom"
+import { Product } from "@/types"
+import api from "@/api"
 
+type OrderCheckout = {
+  productId: string
+  quantity: number
+  color: string
+  size: string
+}
+type ProductGroup = {
+  [key: string]: Product[]
+}
 export function Cart() {
   const context = useContext(GlobalContext)
   if (!context) throw Error("Context is missing")
 
   const { state, handleDeleteFromCart, handleAddToCart, handleDecreaseFromCart } = context
-  const groups = state.cart.reduce((acc, obj) => {
-      const key = obj.id
-      const curGroup = acc[key] ?? []
-      return { ...acc, [key]: [...curGroup, obj] }
-    }, {})
-    console.log('groups:', groups)
+  const groups: ProductGroup = state.cart.reduce((acc, obj) => {
+    const key = obj.id
+    const curGroup = acc[key] ?? []
+    return { ...acc, [key]: [...curGroup, obj] }
+  }, {} as ProductGroup)
   const total = state.cart.reduce((acc, curr) => {
-    return acc+ curr.price
-    }, 0)
+    return acc + curr.price
+  }, 0)
+
+  const CheckoutOrder: OrderCheckout[] = []
+  Object.keys(groups).forEach((key) => {
+    const products = groups[key]
+    CheckoutOrder.push({
+      productId: key,
+      quantity: products.length,
+      color: "red",
+      size: "44"
+    })
+  })
+  const handleCheckout = async () => {
+    const token = localStorage.getItem("token")
+    try {
+      const res = await api.post("/orders", CheckoutOrder, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+    })
+    // if(res.status === 201){
+    //   handleRemoveCart()
+    // }
+      return res.data
+    } catch (error) {
+      console.error(error)
+      return Promise.reject(new Error("Something went wrong"))
+    }
+  }
+
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -48,8 +87,8 @@ export function Cart() {
             const products = groups[key]
             const product = products[0]
             const total = products.reduce((acc, curr) => {
-                return acc+ curr.price
-                }, 0)
+              return acc + curr.price
+            }, 0)
             return (
               <div key={product.id}>
                 <div className="flex items-center justify-between">
@@ -69,16 +108,20 @@ export function Cart() {
                       <h4 className="font-medium">{product.name}</h4>
                       <div>
                         <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-                          <button className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"onClick={() => handleDecreaseFromCart(product.id)}>
+                          <button
+                            className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
+                            onClick={() => handleDecreaseFromCart(product.id)}
+                          >
                             <MinusIcon className="w-4 h-4" />
                           </button>
                           <span>{products.length}</span>
-                          <button  className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"onClick={() => handleAddToCart(product)}>
+                          <button
+                            className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
+                            onClick={() => handleAddToCart(product)}
+                          >
                             <PlusIcon className="w-4 h-4" />
                           </button>
-                          <span className="text-gray-500 dark:text-gray-400 text-sm">
-                            {total}
-                          </span>
+                          <span className="text-gray-500 dark:text-gray-400 text-sm">{total}</span>
                         </div>
                       </div>
                     </div>
@@ -97,9 +140,11 @@ export function Cart() {
           })}
         </div>
         <div className="mt-4 flex justify-end">
-            <p className="ml-2">Total: {total}</p>
+          <p className="ml-2">Total: {total}</p>
           {/* <Button variant="outline">View Cart</Button> */}
-          <Button className="ml-2">Checkout</Button>
+          <Button className="ml-2" onClick={handleCheckout}>
+            Checkout
+          </Button>
         </div>
       </PopoverContent>
     </Popover>

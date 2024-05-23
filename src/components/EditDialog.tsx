@@ -38,10 +38,10 @@ export function EditDialog({ product }: { product: Product }) {
   }
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target
+    const { value,name } = e.target
     setUpdatedProduct({
       ...updatedProduct,
-      name: value
+    [name]: value
     })
   }
 
@@ -63,27 +63,30 @@ export function EditDialog({ product }: { product: Product }) {
               Name
             </Label>
             <Input
-              id="name"
+              name="name"
+            id="name"
               defaultValue={updatedProduct.name}
               className="col-span-3"
               onChange={handleChange}
             />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="username" className="text-right">
+            <Label className="text-right">
               Price
             </Label>
             <Input
-              id="name"
+            name="price"
+              id="price"
               defaultValue={updatedProduct.price}
               className="col-span-3"
               onChange={handleChange}
             />
-            <Label htmlFor="username" className="text-right">
+            <Label className="text-right">
               img
             </Label>
             <Input
-              id="name"
+              name="img"
+              id="img"
               defaultValue={updatedProduct.img}
               className="col-span-3"
               onChange={handleChange}
@@ -91,9 +94,7 @@ export function EditDialog({ product }: { product: Product }) {
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit" onClick={handleUpdateProduct}>
-            Save changes
-          </Button>
+          <Button onClick={handleUpdateProduct}>Save changes</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

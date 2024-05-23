@@ -11,11 +11,12 @@ import {
   TableHeader,
   TableRow
 } from "@/components/ui/table"
-import { Product, ROLE, User } from "@/types"
+import { Category, Product, ProductWithCat, ROLE, User } from "@/types"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { ChangeEvent, useState } from "react"
 import ProductService from "../api/products"
 import { Navbar } from "@/components/NavBar"
+
 export function Dashboard() {
   const queryClient = useQueryClient()
 
@@ -35,6 +36,8 @@ export function Dashboard() {
   }
 
   const handleSubmit = async (e: any) => {
+    console.log(product)
+
     e.preventDefault()
     await ProductService.createOne(product)
     queryClient.invalidateQueries({ queryKey: ["products"] })
@@ -55,6 +58,15 @@ export function Dashboard() {
     }
   }
 
+  const getCategories = async () => {
+    try {
+      const res = await api.get("/categorys", {})
+      return res.data
+    } catch (error) {
+      console.error(error)
+      return Promise.reject(new Error("Something went wrong"))
+    }
+  }
   const handleDeleteProduct = async (productId: string) => {
     await ProductService.deleteOne(productId)
     queryClient.invalidateQueries({ queryKey: ["products"] })
@@ -70,6 +82,28 @@ export function Dashboard() {
     queryFn: getUsers
   })
 
+  const { data: categories, error: catError } = useQuery<Category[]>({
+    queryKey: ["categories"],
+    queryFn: getCategories
+  })
+
+  const productWithCat: ProductWithCat[] | undefined = products?.map((product) => {
+    const category = categories?.find((cat) => cat.id === product.categoryId)
+    if (category) {
+      return {
+        ...product,
+        categoryName: category.type
+      }
+    }
+    return { ...product, categoryName: "" }
+  })
+  const handleSelect = (e) => {
+    console.log("=====", e.target.value)
+    setProduct({
+      ...product,
+      categoryId: e.target.value
+    })
+  }
   return (
     <>
       <Navbar />
@@ -83,13 +117,22 @@ export function Dashboard() {
             placeholder="Name"
             onChange={handleChange}
           />
-          <Input
+          {/* <Input
             name="categoryId"
             className="mt-4"
             type="text"
             placeholder="Category"
             onChange={handleChange}
-          />
+          /> */}
+          <select name="cats" className="mt-4" onChange={handleSelect}>
+            <option selected>select option</option>
+            {categories?.map((cat) => (
+              <option key={cat.id} value={cat.id}>
+                {cat.type}
+              </option>
+            ))}
+          </select>
+
           <Input
             name="price"
             className="mt-4"
@@ -116,17 +159,21 @@ export function Dashboard() {
           <TableHeader>
             <TableRow>
               <TableHead className="w-[100px]"></TableHead>
+              <TableHead>img</TableHead>
               <TableHead>Name</TableHead>
               <TableHead>categoryId</TableHead>
               <TableHead>price</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {products?.map((product) => (
+            {productWithCat?.map((product) => (
               <TableRow key={product.id}>
                 <TableCell></TableCell>
+                <TableCell className="text-left w-16">
+                  <img src={product.img} />
+                </TableCell>
                 <TableCell className="text-left">{product.name}</TableCell>
-                <TableCell className="text-left">{product.categoryId}</TableCell>
+                <TableCell className="text-left">{product.categoryName}</TableCell>
                 <TableCell className="text-left">{product.price}</TableCell>
                 <Button onClick={() => handleDeleteProduct(product.id)}>Delete</Button>
                 <TableCell>
