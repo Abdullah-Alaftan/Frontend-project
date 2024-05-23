@@ -8,6 +8,7 @@ import { ProductDetails } from "./pages/ProductDetails"
 import { Login } from "./pages/Login"
 import { Signup } from "./pages/Signup"
 import { PrivateRoute } from "./components/ui/PrivateRoute"
+import { UsersDashboard } from "./pages/UsersDashboard"
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,11 @@ const router = createBrowserRouter([
     path: "/Login",
     element: <Login />
   },
+  {
+    path: "/UsersDashboard",
+    element: <UsersDashboard />
+  },
+ 
   {
     path: "/Signup",
     element: <Signup />

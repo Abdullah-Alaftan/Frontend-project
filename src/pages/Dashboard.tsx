@@ -16,6 +16,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { ChangeEvent, useState } from "react"
 import ProductService from "../api/products"
 import { Navbar } from "@/components/NavBar"
+import { AdminMenu } from "@/components/AdminMenu"
 
 export function Dashboard() {
   const queryClient = useQueryClient()
@@ -107,6 +108,7 @@ export function Dashboard() {
   return (
     <>
       <Navbar />
+      <AdminMenu />
       <form onSubmit={handleSubmit}>
         <div className="mx-auto mt-20 w-1/2">
           <h1>add a new product</h1>
