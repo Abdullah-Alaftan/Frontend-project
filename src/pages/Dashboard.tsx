@@ -11,7 +11,7 @@ import {
   TableHeader,
   TableRow
 } from "@/components/ui/table"
-import { Category, Product, ProductWithCat, ROLE, User } from "@/types"
+import { Category, Product, ProductWithCat, User } from "@/types"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { ChangeEvent, useState } from "react"
 import ProductService from "../api/products"
@@ -26,6 +26,7 @@ export function Dashboard() {
     categoryId: "",
     price: 0,
     img: ""
+    // Descreption : ""
   })
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -108,83 +109,96 @@ export function Dashboard() {
   return (
     <>
       <Navbar />
-      <AdminMenu />
-      <form onSubmit={handleSubmit}>
-        <div className="mx-auto mt-20 w-1/2">
-          <h1>add a new product</h1>
-          <Input
-            name="name"
-            className="mt-4"
-            type="text"
-            placeholder="Name"
-            onChange={handleChange}
-          />
-          {/* <Input
+      <div className="flex ">
+        <AdminMenu />
+        <div>
+          <form onSubmit={handleSubmit}>
+            <div className="mx-auto mt-20 w-1/2">
+              <h1>add a new product</h1>
+              <Input
+                name="name"
+                className="mt-4"
+                type="text"
+                placeholder="Name"
+                onChange={handleChange}
+              />
+              {/* <Input
             name="categoryId"
             className="mt-4"
             type="text"
             placeholder="Category"
             onChange={handleChange}
           /> */}
-          <select name="cats" className="mt-4" onChange={handleSelect}>
-            <option selected>select option</option>
-            {categories?.map((cat) => (
-              <option key={cat.id} value={cat.id}>
-                {cat.type}
-              </option>
-            ))}
-          </select>
+              <select name="cats" className="mt-4" onChange={handleSelect}>
+                <option selected>select option</option>
+                {categories?.map((cat) => (
+                  <option key={cat.id} value={cat.id}>
+                    {cat.type}
+                  </option>
+                ))}
+              </select>
 
-          <Input
-            name="price"
-            className="mt-4"
-            type="number"
-            placeholder="price"
-            onChange={handleChange}
-          />
-          <Input
-            name="img"
+              <Input
+                name="price"
+                className="mt-4"
+                type="number"
+                placeholder="price"
+                onChange={handleChange}
+              />
+              {/* <Input
+            name="Descreption"
             className="mt-4"
             type="string"
-            placeholder="img"
+            placeholder="Descreption"
             onChange={handleChange}
-          />
-          <Button className="mt-4" type="submit">
-            Add
-          </Button>
+          /> */}
+              <Input
+                name="img"
+                className="mt-4"
+                type="string"
+                placeholder="img"
+                onChange={handleChange}
+              />
+              <Button className="mt-4" type="submit">
+                Add
+              </Button>
+            </div>
+          </form>
+          <div>
+            <h1 className="scroll-m-20 text-4x1 my-3 font-semibold tracking-tight">products</h1>
+            <Table>
+              <TableCaption>A list of your recent Products.</TableCaption>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="w-[100px]"></TableHead>
+                  <TableHead>img</TableHead>
+                  <TableHead>Name</TableHead>
+                  <TableHead>categoryId</TableHead>
+                  <TableHead>price</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {productWithCat?.map((product) => (
+                  <TableRow key={product.id}>
+                    <TableCell></TableCell>
+                    <TableCell className="text-left w-16">
+                      <img src={product.img} />
+                    </TableCell>
+                    <TableCell className="text-left">{product.name}</TableCell>
+                    <TableCell className="text-left">{product.categoryName}</TableCell>
+                    <TableCell className="text-left">{product.price}</TableCell>
+                    <Button variant="destructive" onClick={() => handleDeleteProduct(product.id)}>
+                      Delete
+                    </Button>
+                    <TableCell>
+                      <EditDialog product={product} />
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
         </div>
-      </form>
-      <div>
-        <h1 className="scroll-m-20 text-4x1 my-3 font-semibold tracking-tight">products</h1>
-        <Table>
-          <TableCaption>A list of your recent Products.</TableCaption>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-[100px]"></TableHead>
-              <TableHead>img</TableHead>
-              <TableHead>Name</TableHead>
-              <TableHead>categoryId</TableHead>
-              <TableHead>price</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {productWithCat?.map((product) => (
-              <TableRow key={product.id}>
-                <TableCell></TableCell>
-                <TableCell className="text-left w-16">
-                  <img src={product.img} />
-                </TableCell>
-                <TableCell className="text-left">{product.name}</TableCell>
-                <TableCell className="text-left">{product.categoryName}</TableCell>
-                <TableCell className="text-left">{product.price}</TableCell>
-                <Button onClick={() => handleDeleteProduct(product.id)}>Delete</Button>
-                <TableCell>
-                  <EditDialog product={product} />
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
       </div>
     </>
   )

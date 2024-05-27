@@ -13,7 +13,7 @@ import { UsersDashboard } from "./pages/UsersDashboard"
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />
+    element: <Home/>
   },
   {
     path: "/dashboard",
@@ -33,7 +33,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/UsersDashboard",
-    element: <UsersDashboard />
+    element:(
+      <PrivateRoute>
+      <UsersDashboard />  
+      </PrivateRoute>
+    )
   },
  
   {
@@ -48,6 +52,7 @@ type GlobalContextType = {
   // handleRemoveCart: () => void
   handleDecreaseFromCart: (productId: string) => void
   handleStoreUser: (user: DecodedUser) => void
+  handleRemoveUser: () => void
 
 }
 type GlobalState = {
@@ -113,10 +118,16 @@ function App() {
       user
     })
   }
+  const handleRemoveUser = () => {
+    setState({
+      ...state,
+      user: null
+    })
+  }
   return (
     <div className="App">
       <GlobalContext.Provider
-        value={{ state, handleAddToCart, handleDeleteFromCart, handleStoreUser , handleDecreaseFromCart}}
+        value={{ state, handleAddToCart, handleDeleteFromCart, handleStoreUser , handleDecreaseFromCart , handleRemoveUser }}
       >
         <RouterProvider router={router} />
       </GlobalContext.Provider>

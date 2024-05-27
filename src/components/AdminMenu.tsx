@@ -1,60 +1,55 @@
+import React from "react"
 import { Link } from "react-router-dom"
 
 export function AdminMenu() {
   return (
-    <div key="1" className="flex  max-h-screen w-full">
-      <div className="hidden border-r bg-gray-100/40 dark:bg-gray-800/40 lg:block">
-        <div className="flex h-full max-h-screen flex-col gap-2">
-          <div className="flex h-[60px] items-center border-b px-6">
-            <Link className="flex items-center gap-2 font-semibold" to="#">
+    <div>
+      <div className="mt-20">
+        <div className="h-full max-h-screen flex flex-col gap-2">
+          <div className="border-b px-6">
+            <div className="flex items-center gap-2 font-semibold w-full py-4">
               <MountainIcon className="h-6 w-6" />
-              <span>Shoefiy</span>
+              <span>Dashboard</span>
+            </div>
+          </div>
+          <nav className="grid items-start px-4 text-sm font-medium">
+            <Link
+              className="flex items-center gap-3 rounded-lg bg-gray-100 px-3 py-2 text-gray-900 transition-all hover:text-gray-900 dark:bg-gray-800 dark:text-gray-50 dark:hover:text-gray-50"
+              to="/dashboard"
+            >
+              <StoreIcon className="h-4 w-4" />
+              Products
             </Link>
-          </div>
-          <div className="flex-1 overflow-auto py-2">
-            <nav className="grid items-start px-4 text-sm font-medium">
-              <Link
-                className="flex items-center gap-3 rounded-lg bg-gray-100 px-3 py-2 text-gray-900 transition-all hover:text-gray-900 dark:bg-gray-800 dark:text-gray-50 dark:hover:text-gray-50"
-                to="/InventoryDashboard"
-              >
-                <PackageIcon className="h-4 w-4" />
-                Inventory
-              </Link>
-              <Link
-                className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                to="#"
-              >
-                <FolderIcon className="h-4 w-4" />
-                Category
-              </Link>
-              <Link
-                className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                to="#"
-              >
-                <StoreIcon className="h-4 w-4" />
-                Products
-              </Link>
-              <Link
-                className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                to="/UsersDashboard"
-              >
-                <UsersIcon className="h-4 w-4" />
-                Users
-              </Link>
-            </nav>
-          </div>
+            <Link
+              className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+              to="/UsersDashboard"
+            >
+              <UsersIcon className="h-4 w-4" />
+              Users
+            </Link>
+            <Link
+              className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+              to=""
+            >
+              <PackageIcon className="h-4 w-4" />
+              Inventory
+            </Link>
+            <Link
+              className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+              to="#"
+            >
+              <FolderIcon className="h-4 w-4" />
+              Category
+            </Link>
+          </nav>
         </div>
       </div>
-      <div className="flex flex-col w-full">
-     <main className="flex-1 p-4 md:p-6">
-          <h1 className="font-semibold text-lg md:text-2xl">Inventory</h1>
-        </main>
-      </div>
+      <div className="flex flex-col w-full"></div>
     </div>
   )
 }
 
-function FolderIcon(props : any) {
+function FolderIcon(props: any) {
   return (
     <svg
       {...props}
@@ -73,8 +68,7 @@ function FolderIcon(props : any) {
   )
 }
 
-
-function MountainIcon(props : any) {
+function MountainIcon(props: any) {
   return (
     <svg
       {...props}
@@ -93,8 +87,7 @@ function MountainIcon(props : any) {
   )
 }
 
-
-function PackageIcon(props : any) {
+function PackageIcon(props: any) {
   return (
     <svg
       {...props}
@@ -116,8 +109,7 @@ function PackageIcon(props : any) {
   )
 }
 
-
-function StoreIcon(props : any) {
+function StoreIcon(props: any) {
   return (
     <svg
       {...props}
@@ -140,8 +132,7 @@ function StoreIcon(props : any) {
   )
 }
 
-
-function UsersIcon(props : any) {
+function UsersIcon(props: any) {
   return (
     <svg
       {...props}

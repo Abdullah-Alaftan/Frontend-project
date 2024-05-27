@@ -1,66 +1,69 @@
 import {
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenu
-} from "@/components/ui/navigation-menu"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Link } from "react-router-dom"
-import { ChangeEvent, useContext, useState } from "react"
-import { useQueryClient } from "@tanstack/react-query"
-import { GlobalContext } from "@/App"
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover"
-import { XIcon } from "lucide-react"
-import { ROLE } from "@/types"
-import { Cart } from "./Cart"
+  NavigationMenu,
+} from "@/components/ui/navigation-menu";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import { ChangeEvent, useContext } from "react";
+import { GlobalContext } from "@/App";
+import { ROLE } from "@/types";
+import { Cart } from "./Cart";
 
 type NavbarProps = {
-  handleChange?: (e: ChangeEvent<HTMLInputElement>) => void
-}
+  handleChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+};
+
 export function Navbar({ handleChange }: NavbarProps) {
-  const context = useContext(GlobalContext)
+  const context = useContext(GlobalContext);
 
-  if (!context) throw Error("Context is missing")
-  const { state } = context
+  if (!context) throw Error("Context is missing");
+  const { state , handleRemoveUser } = context;
 
-  // const { state } = context
-  // console.log("state:", state)
-  // const queryClient = useQueryClient()
-
-  // const [searchBy, setSearchBy] = useState("")
-  // console.log('searchBy:', searchBy)
-
-  // const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-  //   const { value } = e.target
-  //   setSearchBy(value)
-  //   queryClient.invalidateQueries({ queryKey: ["products"] })
-
-  // }
-
+  const handleLogout = () =>{
+    if(typeof window !== undefined){
+      window.location.reload()
+    }
+    localStorage.removeItem(`token`)
+    localStorage.removeItem(`user`)
+    handleRemoveUser()
+  }
   return (
-    <header className="flex h-16 w-full items-left justify-between px-4 md:px-6  inset-y-0	fixed z-30 bg-blue-500">
-      <Link className="flex items-center mr-20" to="#">
-        <MountainIcon className="h-6 w-6" />
-        
-        <span className="text-lg font-semibold">shoefiy</span>
+    <header className="flex h-16 w-full items-left justify-between px-4 md:px-6 fixed z-30 bg-[rgba(0,0,0,0.5)]">
+      <Link className="flex items-center mr-20 text-white" to="/">
+        <img src="/LOGO.png" alt="Logo" className="h-20 w-20" />
       </Link>
-      <NavigationMenu className="hidden items-center gap-6 text-sm font-medium md:flex md:gap-10 top-0">
-        <NavigationMenuList className="md:gap-10">
+      <NavigationMenu className="hidden items-center gap-6 text-sm font-medium md:flex md:gap-10">
+        <NavigationMenuList className="md:gap-10 text-white">
           <NavigationMenuLink asChild>
-            <Link to="http://localhost:3000/">Home</Link>
+            <Link to="/">Home</Link>
           </NavigationMenuLink>
           {state.user?.role === ROLE.Admin && (
             <NavigationMenuLink asChild>
               <Link to="/dashboard">dashboard</Link>
             </NavigationMenuLink>
           )}
+          {/*         
           <NavigationMenuLink asChild>
-            <Link to="#">Services</Link>
-          </NavigationMenuLink>
+            <Button to="Footer">About</Button>
+          </NavigationMenuLink> */}
           {!state.user && (
-            <NavigationMenuLink asChild>
-              <Link to="/Login">Login</Link>
-            </NavigationMenuLink>
+            <>
+              <NavigationMenuLink asChild>
+                <Link to="/Login">Login</Link>
+              </NavigationMenuLink>
+              <NavigationMenuLink asChild>
+                <Link to="/Signup">Signup</Link>
+              </NavigationMenuLink>
+            </>
+          )}
+          {state.user && (
+            <>
+              <NavigationMenuLink asChild>
+                <Button variant={"ghost"} onClick={handleLogout}>Logout</Button>
+              </NavigationMenuLink>
+            </>
           )}
         </NavigationMenuList>
       </NavigationMenu>
@@ -79,24 +82,5 @@ export function Navbar({ handleChange }: NavbarProps) {
         <Cart />
       </div>
     </header>
-  )
-}
-
-function MountainIcon(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
-    </svg>
-  )
+  );
 }

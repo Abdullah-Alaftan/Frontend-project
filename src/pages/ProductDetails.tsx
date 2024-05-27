@@ -48,5 +48,6 @@ export function ProductDetails({ handleChange }: NavbarProps) {
         <h3>{product.name}</h3>
       </div>
     </>
+    
   )
 }

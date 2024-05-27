@@ -1,5 +1,4 @@
 import api from "@/api"
-import { EditDialog } from "@/components/EditDialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
@@ -11,13 +10,11 @@ import {
   TableHeader,
   TableRow
 } from "@/components/ui/table"
-import { ROLE, User } from "@/types"
+import { User } from "@/types"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { ChangeEvent, useState } from "react"
-import ProductService from "../api/products"
 import { Navbar } from "@/components/NavBar"
 import { AdminMenu } from "@/components/AdminMenu"
-import { userInfo } from "os"
 import UserService from "@/api/UserService"
 import { EditUser } from "@/components/EditUser"
 
@@ -110,10 +107,11 @@ export function UsersDashboard() {
   //     })
   //   }
   return (
+    
     <>
       <Navbar />
       <AdminMenu />
-      <form onSubmit={handleSubmit}>
+      {/* <form onSubmit={handleSubmit}>
         <div className="mx-auto mt-20 w-1/2">
           <h1>add a new user</h1>
           <Input
@@ -123,21 +121,21 @@ export function UsersDashboard() {
             placeholder="Name"
             onChange={handleChange}
           />
-          {/* <Input
+           <Input
             name="categoryId"
             className="mt-4"
             type="text"
             placeholder="Category"
             onChange={handleChange}
-          /> */}
-          {/* <select name="cats" className="mt-4" onChange={handleSelect}>
+          /> *
+           <select name="cats" className="mt-4" onChange={handleSelect}>
             <option selected>select option</option>
             {categories?.map((cat) => (
               <option key={cat.id} value={cat.id}>
                 {cat.type}
               </option>
             ))}
-          </select> */}
+          </select> 
 
           <Input
             name="email"
@@ -157,7 +155,7 @@ export function UsersDashboard() {
             Add
           </Button>
         </div>
-      </form>
+      </form> */}
       <div>
         <h1 className="scroll-m-20 text-4x1 my-3 font-semibold tracking-tight">Users</h1>
         <Table>
