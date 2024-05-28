@@ -1,33 +1,11 @@
-
-import Link from "next/link"
-import { NavigationMenuLink, NavigationMenuList, NavigationMenu } from "@/components/ui/navigation-menu"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { PopoverTrigger, PopoverContent, Popover } from "@/components/ui/popover"
+import { Link } from "react-router-dom"
 
 export function cartPopUp() {
   return (
     <header className="flex h-16 w-full items-center justify-between px-4 md:px-6">
-      <Link className="flex items-center gap-2" href="#">
-        <MountainIcon className="h-6 w-6" />
-        <span className="text-lg font-semibold">Acme Inc</span>
-      </Link>
-      <NavigationMenu className="hidden items-center gap-6 text-sm font-medium md:flex">
-        <NavigationMenuList>
-          <NavigationMenuLink asChild>
-            <Link href="#">Home</Link>
-          </NavigationMenuLink>
-          <NavigationMenuLink asChild>
-            <Link href="#">About</Link>
-          </NavigationMenuLink>
-          <NavigationMenuLink asChild>
-            <Link href="#">Services</Link>
-          </NavigationMenuLink>
-          <NavigationMenuLink asChild>
-            <Link href="#">Contact</Link>
-          </NavigationMenuLink>
-        </NavigationMenuList>
-      </NavigationMenu>
       <div className="relative flex items-center gap-4 flex-1 max-w-md md:ml-auto">
         <form>
           <Input
@@ -41,9 +19,11 @@ export function cartPopUp() {
         </form>
         <Popover>
           <PopoverTrigger asChild>
-            <Link className="relative" href="#">
+            <Link className="relative" to="#">
               <ShoppingCartIcon className="h-6 w-6" />
-              <span className="absolute -top-2 -right-2 rounded-full bg-red-500 text-white text-xs px-2 py-1">3</span>
+              <span className="absolute -top-2 -right-2 rounded-full bg-red-500 text-white text-xs px-2 py-1">
+                3
+              </span>
             </Link>
           </PopoverTrigger>
           <PopoverContent className="w-80 p-4 border rounded-lg shadow-lg bg-white dark:bg-gray-800 dark:border-gray-700">
@@ -65,11 +45,7 @@ export function cartPopUp() {
                     className="rounded-md"
                     height={64}
                     src="/placeholder.svg"
-                    style={{
-                      aspectRatio: "64/64",
-                      objectFit: "cover",
-                    }}
-                    width={64}
+                  
                   />
                   <div>
                     <h4 className="font-medium">Product Name</h4>
@@ -85,17 +61,12 @@ export function cartPopUp() {
                 </Button>
               </div>
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 object-contain">
                   <img
                     alt="Product Image"
                     className="rounded-md"
                     height={64}
                     src="/placeholder.svg"
-                    style={{
-                      aspectRatio: "64/64",
-                      objectFit: "cover",
-                    }}
-                    width={64}
                   />
                   <div>
                     <h4 className="font-medium">Another Product</h4>
@@ -122,7 +93,7 @@ export function cartPopUp() {
   )
 }
 
-function MountainIcon(props) {
+function MountainIcon(props: any) {
   return (
     <svg
       {...props}
@@ -141,8 +112,7 @@ function MountainIcon(props) {
   )
 }
 
-
-function ShoppingCartIcon(props) {
+function ShoppingCartIcon(props: any) {
   return (
     <svg
       {...props}
@@ -163,8 +133,7 @@ function ShoppingCartIcon(props) {
   )
 }
 
-
-function XIcon(props) {
+function XIcon(props: any) {
   return (
     <svg
       {...props}

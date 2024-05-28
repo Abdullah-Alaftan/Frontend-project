@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 
 export function AdminMenu() {
   return (
-    <div>
+    <div className=" fixed left-0">
       <div className="mt-20">
         <div className="h-full max-h-screen flex flex-col gap-2">
           <div className="border-b px-6">

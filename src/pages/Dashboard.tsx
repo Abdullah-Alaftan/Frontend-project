@@ -109,7 +109,7 @@ export function Dashboard() {
   return (
     <>
       <Navbar />
-      <div className="flex ">
+      <div className="flex justify-center ">
         <AdminMenu />
         <div>
           <form onSubmit={handleSubmit}>

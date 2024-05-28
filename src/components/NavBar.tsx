@@ -76,7 +76,9 @@ export function Navbar({ handleChange }: NavbarProps) {
             Search
           </Button>
         </form>
+       <div className="text-black">
         <Cart />
+        </div>
       </div>
     </header>
   );

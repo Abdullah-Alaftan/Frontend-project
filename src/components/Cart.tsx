@@ -47,10 +47,10 @@ export function Cart() {
         headers: {
           Authorization: `Bearer ${token}`
         }
-    })
-    // if(res.status === 201){
-    //   handleRemoveCart()
-    // }
+      })
+      // if(res.status === 201){
+      //   handleRemoveCart()
+      // }
       return res.data
     } catch (error) {
       console.error(error)
@@ -100,7 +100,7 @@ export function Cart() {
                       src={product.img}
                       style={{
                         aspectRatio: "64/64",
-                        objectFit: "cover"
+                        objectFit: "contain"
                       }}
                       width={64}
                     />
@@ -160,7 +160,7 @@ function ShoppingCartIcon(props: any) {
       height="24"
       viewBox="0 0 24 24"
       fill="none"
-      stroke="white" 
+      stroke="white"
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
