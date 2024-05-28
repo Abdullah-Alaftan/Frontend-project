@@ -5,7 +5,7 @@ import { ChangeEvent, FormEvent, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 
 export function Signup() {
-  const navegate = useNavigate();
+  const navegate = useNavigate()
 
   const [user, setUser] = useState({
     name: "",
@@ -56,7 +56,7 @@ export function Signup() {
           name="password"
           type="password"
           className="mt-4"
-          placeholder="Password"
+          placeholder="password"
           onChange={handleChange}
         />
         <Input

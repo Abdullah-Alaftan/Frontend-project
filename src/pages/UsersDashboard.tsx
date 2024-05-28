@@ -107,7 +107,6 @@ export function UsersDashboard() {
   //     })
   //   }
   return (
-    
     <>
       <Navbar />
       <AdminMenu />
@@ -141,7 +140,7 @@ export function UsersDashboard() {
             name="email"
             className="mt-4"
             type="string"
-            placeholder="Email"
+            placeholder="email"
             onChange={handleChange}
           />
           <Input
@@ -164,7 +163,7 @@ export function UsersDashboard() {
             <TableRow>
               <TableHead className="w-[100px]"></TableHead>
               <TableHead>Name</TableHead>
-              <TableHead>Email</TableHead>
+              <TableHead>email</TableHead>
               <TableHead>Phone</TableHead>
               <TableHead>Role</TableHead>
             </TableRow>

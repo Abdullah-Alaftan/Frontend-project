@@ -38,10 +38,10 @@ export function EditUser({ user }: { user: User }) {
   }
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value,name } = e.target
+    const { value, name } = e.target
     setUpdatedUser({
       ...updatedUser,
-    [name]: value
+      [name]: value
     })
   }
 
@@ -64,26 +64,22 @@ export function EditUser({ user }: { user: User }) {
             </Label>
             <Input
               name="name"
-            id="name"
+              id="name"
               defaultValue={updatedUser.name}
               className="col-span-3"
               onChange={handleChange}
             />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label className="text-right">
-              Email
-            </Label>
+            <Label className="text-right">email</Label>
             <Input
-            name="email"
+              name="email"
               id="email"
               defaultValue={updatedUser.email}
               className="col-span-3"
               onChange={handleChange}
             />
-            <Label className="text-right">
-              img
-            </Label>
+            <Label className="text-right">img</Label>
             <Input
               name="phone"
               id="phone"
