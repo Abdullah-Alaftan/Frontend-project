@@ -19,16 +19,17 @@ export function Navbar({ handleChange }: NavbarProps) {
   const context = useContext(GlobalContext);
 
   if (!context) throw Error("Context is missing");
-  const { state , handleRemoveUser } = context;
+  const { state, handleRemoveUser } = context;
 
-  const handleLogout = () =>{
-    if(typeof window !== undefined){
-      window.location.reload()
+  const handleLogout = () => {
+    if (typeof window !== undefined) {
+      window.location.reload();
     }
-    localStorage.removeItem(`token`)
-    localStorage.removeItem(`user`)
-    handleRemoveUser()
-  }
+    localStorage.removeItem(`token`);
+    localStorage.removeItem(`user`);
+    handleRemoveUser();
+  };
+
   return (
     <header className="flex h-16 w-full items-center justify-between px-4 md:px-6 fixed z-30 bg-[rgba(0,0,0,0.5)]">
       <Link className="flex items-center mr-0 md:mr-20 text-white" to="/">
@@ -44,10 +45,6 @@ export function Navbar({ handleChange }: NavbarProps) {
               <Link to="/dashboard">dashboard</Link>
             </NavigationMenuLink>
           )}
-          {/*         
-          <NavigationMenuLink asChild>
-            <Button to="Footer">About</Button>
-          </NavigationMenuLink> */}
           {!state.user && (
             <>
               <NavigationMenuLink asChild>
@@ -70,7 +67,7 @@ export function Navbar({ handleChange }: NavbarProps) {
       <div className="flex items-center gap-6 md:gap-10 text-white">
         <form className="w-full">
           <Input
-            className="w-full rounded-md border border-gray-300 px-4 py-2 text-sm focus:border-gray-500 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200"
+            className="w-full rounded-md border border-gray-300 px-4 py-2 text-sm text-white placeholder-gray-400 bg-gray-800 focus:border-gray-500 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:placeholder-gray-500"
             placeholder="Search..."
             type="text"
             onChange={handleChange}
@@ -84,4 +81,3 @@ export function Navbar({ handleChange }: NavbarProps) {
     </header>
   );
 }
-

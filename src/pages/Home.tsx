@@ -68,7 +68,9 @@ export function Home() {
               <CardBody>{product.price}</CardBody>
               <CardFooter>
                 <Button variant={"outline"}>
-                  <Link to={`/products/${product.id}`}>Details</Link>
+                Details
+                  {/* <Link to={""}>Details</Link> */}
+                  {/* <Link to={`/products/${product.id}`}>Details</Link> */}
                 </Button>
                 <Button className="w-full mx-1" onClick={() => handleAddToCart(product)}>
                   Add to cart
