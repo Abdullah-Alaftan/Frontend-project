@@ -174,6 +174,7 @@ export function Dashboard() {
                   <TableHead>img</TableHead>
                   <TableHead>Name</TableHead>
                   <TableHead>categoryId</TableHead>
+                  <TableHead>Descreption</TableHead>
                   <TableHead>price</TableHead>
                 </TableRow>
               </TableHeader>
@@ -186,6 +187,7 @@ export function Dashboard() {
                     </TableCell>
                     <TableCell className="text-left">{product.name}</TableCell>
                     <TableCell className="text-left">{product.categoryName}</TableCell>
+                    <TableCell className="text-left">{product.Descreption}</TableCell>
                     <TableCell className="text-left">{product.price}</TableCell>
                     <Button variant="destructive" onClick={() => handleDeleteProduct(product.id)}>
                       Delete
