@@ -25,8 +25,8 @@ export function Dashboard() {
     name: "",
     categoryId: "",
     price: 0,
-    img: ""
-    // Descreption : ""
+    img: "",
+    Descreption : ""
   })
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
