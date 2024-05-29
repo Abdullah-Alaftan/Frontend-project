@@ -71,6 +71,18 @@ export function EditDialog({ product }: { product: Product }) {
             />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="Descreption" className="text-right">
+            Descreption
+            </Label>
+            <Input
+              name="Descreption"
+            id="Descreption"
+              defaultValue={updatedProduct.Descreption}
+              className="col-span-3"
+              onChange={handleChange}
+            />
+          </div>
+          <div className="grid grid-cols-4 items-center gap-4">
             <Label className="text-right">
               Price
             </Label>
