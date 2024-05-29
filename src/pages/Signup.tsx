@@ -1,4 +1,5 @@
 import api from "@/api"
+import { Navbar } from "@/components/NavBar"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ChangeEvent, FormEvent, useState } from "react"
@@ -42,7 +43,9 @@ export function Signup() {
     }
   }
   return (
-    <div>
+    <div className="h-screen">
+    <Navbar/>
+    <div className="py-20">
       <h1>Signup</h1>
       <form action="POST" onSubmit={handleSubmit} className="w-full md:w-1/3 mx-auto">
         <Input
@@ -80,6 +83,7 @@ export function Signup() {
           </Button>
         </div>
       </form>
+    </div>
     </div>
   )
 }

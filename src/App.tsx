@@ -5,6 +5,7 @@ import "./App.css"
 import { DecodedUser, Product } from "./types"
 import { Home } from "./pages/Home"
 import { ProductDetails } from "./pages/ProductDetails"
+import { ProductDetailPage } from "./pages/productdeatilspage"
 import { Login } from "./pages/Login"
 import { Signup } from "./pages/Signup"
 import { PrivateRoute } from "./components/ui/PrivateRoute"
@@ -23,9 +24,10 @@ const router = createBrowserRouter([
       </PrivateRoute>
     )
   },
+ 
   {
     path: "/products/:productId",
-    element: <ProductDetails />
+    element: <ProductDetailPage />
   },
   {
     path: "/Login",

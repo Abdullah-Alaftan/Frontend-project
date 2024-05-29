@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input"
 import { reshapeUser } from "@/lib/utils"
 import { ChangeEvent, FormEvent, useContext, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
+import { Navbar } from "@/components/NavBar"
 
 export function Login() {
   const navegate = useNavigate()
@@ -49,30 +50,33 @@ export function Login() {
     }
   }
   return (
-    <div>
-      <h1>login</h1>
-      <form action="POST" className="w-full md:w-1/3 mx-auto" onSubmit={handleSubmit}>
-        <Input
-          name="email"
-          className="mt-4"
-          type="text"
-          placeholder="email"
-          onChange={handleChange}
-        />
-        <Input
-          name="password"
-          type="password"
-          className="mt-4"
-          placeholder="password"
-          onChange={handleChange}
-        />
-        <div className="flex justify-between flex-col">
-          <Button className="mt-4">Login</Button>
-          <Button className="mt-4" variant="link">
-            <Link to="/Signup">Create An Account</Link>
-          </Button>
-        </div>
-      </form>
+    <div className="h-screen">
+      <Navbar />
+      <div className="py-20">
+        <h1>login</h1>
+        <form action="POST" className="w-full md:w-1/3 mx-auto" onSubmit={handleSubmit}>
+          <Input
+            name="email"
+            className="mt-4"
+            type="text"
+            placeholder="email"
+            onChange={handleChange}
+          />
+          <Input
+            name="password"
+            type="password"
+            className="mt-4"
+            placeholder="password"
+            onChange={handleChange}
+          />
+          <div className="flex justify-between flex-col">
+            <Button className="mt-4">Login</Button>
+            <Button className="mt-4" variant="link">
+              <Link to="/Signup">Create An Account</Link>
+            </Button>
+          </div>
+        </form>
+      </div>
     </div>
   )
 }

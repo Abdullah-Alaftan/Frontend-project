@@ -3,7 +3,7 @@ export type Product = {
   name: string
   img: string
   price: number
-  // Descreption : string
+  Descreption : string
   categoryId: string
 }
 export type ProductWithCat = Product & { categoryName: string }

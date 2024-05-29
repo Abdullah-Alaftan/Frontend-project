@@ -1,7 +1,8 @@
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { PopoverTrigger, PopoverContent, Popover } from "@/components/ui/popover"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Link } from "react-router-dom"
+import { Label } from "@radix-ui/react-label"
 
 export function cartPopUp() {
   return (
@@ -45,7 +46,6 @@ export function cartPopUp() {
                     className="rounded-md"
                     height={64}
                     src="/placeholder.svg"
-                  
                   />
                   <div>
                     <h4 className="font-medium">Product Name</h4>

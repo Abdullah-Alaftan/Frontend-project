@@ -108,7 +108,7 @@ export function Dashboard() {
   }
   return (
     <>
-      <Navbar />
+      <Navbar  />
       <div className="flex justify-center ">
         <AdminMenu />
         <div>
@@ -145,13 +145,13 @@ export function Dashboard() {
                 placeholder="price"
                 onChange={handleChange}
               />
-              {/* <Input
+               <Input
             name="Descreption"
             className="mt-4"
             type="string"
             placeholder="Descreption"
             onChange={handleChange}
-          /> */}
+          /> 
               <Input
                 name="img"
                 className="mt-4"
