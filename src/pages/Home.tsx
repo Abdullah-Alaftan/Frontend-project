@@ -92,7 +92,7 @@ export function Home() {
                   src={product.img}
                   className="mb-3 h-56 w-56 object-contain css.6bmoar css.a3xaio"
                 />{" "}
-                <CardBody>Some Description here</CardBody>
+                <CardBody>{product.Descreption}</CardBody>
               </CardHeader>
               <CardBody>{product.price}</CardBody>
               <CardFooter>
